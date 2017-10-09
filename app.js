@@ -1,9 +1,20 @@
 const express = require('express')
-const app = express()
+var request = require('request')
 
+const app = express()
 app.get('/', function (req, res) {
   res.send('My Hello World!')
 })
+
+app.get('/google', function(req, res) {
+    console.log('req:', req)
+    request("http://www.google.com", function (error, response, body) {
+        console.log('error:', error); // Print the error if one occurred
+        console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
+        res.send(body)
+    });
+})
+
 
 if (module === require.main) {
   // [START server]
